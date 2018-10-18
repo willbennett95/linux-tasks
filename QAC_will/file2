@@ -1,1 +1,41 @@
-some text
+#!/bin/bash
+
+echo "Showing responses for $(date)" >> file3
+count=0
+while [ $count -lt 1 ]; do
+echo "Input a number"
+read number < /dev/tty
+if [[ $(( $number % 2 )) == 0 ]]
+then
+    echo "$number is even"
+    echo "$number is even" >> file3
+else
+    echo "$number is odd"
+    echo "$number is odd" >> file3
+fi
+
+    read -r -p "Do you want to input another number? [y/n]" response
+    response=${response,,}
+    if [[ "$response" =~ ^(yes|y)$ ]]
+    then
+	echo ""
+    else
+	(( count++ ))
+    fi
+
+
+done
+
+    read -r -p "Do you want to save your results? [y/n]" response
+    response=${response,,}
+    if [[ "$response" =~ ^(yes|y)$ ]]
+    then
+	echo "response saved in changedFileName"
+	mv file3 changedFileName
+	mv changedFileName ~/projects/linux-tasks
+	touch file3
+    else
+	rm -f file3
+	echo "response deleted"
+	touch file3
+    fi
