@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Input the name of a directory: "
+read -a dir
+
+echo "Files in directory: "
+ls -f $dir | wc -l
+
+echo "Last edited: "
+stat -c %y $dir
+
+echo "Largest File: "
+find $dir -type f -ls | ls -lhS | sort -k 7 -r -n | head -1
+
+echo "Smallest File: "
+find $dir -type f -printf "%s\t%p\n" | sort -n | head -1
