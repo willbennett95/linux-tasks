@@ -1,0 +1,19 @@
+#!/bin/bash
+
+count=0
+while [ $count -lt 1 ]; do
+read -p "Input a number " number
+echo $number >> listofnumbers
+    read -r -p "Do you want to input another number? [y/n] " response
+    response=${response,,}
+    if [[ "$response" =~ ^(yes|y)$ ]]
+    then
+        echo ""
+    else
+        (( count++ ))
+	sort -n -o list.sorted listofnumbers
+	cat list.sorted
+	rm -f listofnumbers list.sorted
+    fi
+
+done
